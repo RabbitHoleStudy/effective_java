@@ -5,7 +5,7 @@ body:
     attributes:
       value: |
         작성 예시 : "[ITEM 2] 엔티티에도 Builder를 쓰나요?"
-  - type: textarea
+  - type: input
     id: 내용
     attributes:
       label: 설명
