@@ -1,5 +1,5 @@
 name: 공유하기
-description: 질문, 알게된 사항들에 대해 공유합니다.
+description: '질문, 알게된 사항들에 대해 공유합니다.'
 body:
   - type: markdown
     attributes:
@@ -9,7 +9,7 @@ body:
     id: 내용
     attributes:
       label: 설명
-      description: 공유하고자 하는 내용, 질문에 대해 작성해주세요.
+      description: '공유하고자 하는 내용, 질문에 대해 작성해주세요.'
       placeholder: 설명을 적어주세요.
     validations:
       required: true
