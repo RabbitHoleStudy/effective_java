@@ -6,7 +6,7 @@ body:
       value: |
         작성 예시 : "[ITEM 2] 엔티티에도 Builder를 쓰나요?"
   - type: textarea
-    id: 내용
+    id: statement
     attributes:
       label: 설명
       description: '공유하고자 하는 내용, 질문에 대해 작성해주세요.'
