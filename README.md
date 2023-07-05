@@ -12,6 +12,7 @@
 
 [😺 sichoi](https://github.com/sichoi42) 
 
+[🚀 wchae](https://github.com/enaenen)
 
 
 ## 방식
