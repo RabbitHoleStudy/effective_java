@@ -1,0 +1,15 @@
+name: "공유하기"
+description: 질문, 알게된 사항들에 대해 공유합니다.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        작성 예시 : "[ITEM 2] 엔티티에도 Builder를 쓰나요?"
+  - type: textarea
+    id: 내용
+    attributes:
+      label: 설명
+      description: 공유하고자 하는 내용, 질문에 대해 작성해주세요.
+      placeholder: 설명을 적어주세요.
+    validations:
+      required: true
