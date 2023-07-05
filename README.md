@@ -1,18 +1,18 @@
-# effective_java
-본인이 맡은 파트에 대한 자료를 업로드합니다.
 # Effective Java 3E 스터디
 
 ---
 
 ## 멤버
 
-[😺 sichoi](https://github.com/sichoi42) 
-
-[🚀sanan](https://github.com/Ssuamje)
+[🌑 daewoole](https://github.com/LeeDaeWook)
 
 🧑‍💻 [jpark2](https://github.com/Z1park)
 
-[🌑 daewoole](https://github.com/LeeDaeWook)
+[🚀sanan](https://github.com/Ssuamje)
+
+[😺 sichoi](https://github.com/sichoi42) 
+
+
 
 ## 방식
 
