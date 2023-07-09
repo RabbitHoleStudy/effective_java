@@ -1,6 +1,8 @@
 # 정적 팩터리 메소드 (static factory method)
 
-## 요약
+---
+
+# 요약
 
 객체를 새로 생성해서 반환하거나,
 
@@ -11,18 +13,34 @@
 - 생성자 처럼 사용할 수 있다.
 - 객체를 생성하지 않고 함수를 호출 할 수 있다.
 
-## 장점 & 설명
+---
 
-1. 생성자처럼 쓰면서 이름을 가질 수 있다.
-    
-    이름을 가질 수 있다는 말은 객체의 특성을 설명할 수 있다는걸 뜻한다.
-    
-    - 예시
-    
-    같은 전달인자의 BigInteger.probablePrime 과, BingInteger() 생성자 
-    
-    - BigInteger.probablePrime()
-        
+# 장점 & 설명
+
+## 1. 생성자처럼 쓰면서 이름을 가질 수 있다.
+
+- 이름을 가질 수 있다는 말은 객체의 특성을 설명할 수 있다는걸 뜻한다.
+
+### 예시 BigInteger
+
+```java
+//BigInteger Class 
+
+public BigInteger(int numBits, Random rnd) { ... }
+public static BigInteger probablePrime(int bitLength, Random rnd) {...}
+```
+
+- BigInteger() 생성자 와 BigInteger.probablePrime()
+    - [생성자] BigInteger(int numBits, Random rnd)
+    - 함수에 대한 설명
+        - numBits 로 비트 수를 입력 받고, Random  객체를 입력받아서 랜덤한 numBits에 해당하는 수 중, 10진수를 리턴한다
+        - 예를들어 numBits = 3 일때 출력값은 3 비트 중 랜덤으로 나온다
+        `000(0), 001(1), 010(2), 011(3), 111(4)`
+        - [Static Factory method] BigInteger.probablePrime()
+            - bitLength 로 비트 수를 입력받고, Random 객체를 입력받아서 랜덤한 bitLength 에 해당하는 수들 중 소수값을 랜덤으로 10진수 리턴한다.
+            - 예를들어 bitLength = 5 일때
+            `00011(3),00101(5)` 중 하나가 랜덤으로 나온다.
+    - BigInteger.probablePrime() 상세 구현 설명
         
         ```java
         BigInteger(int, int, Random)
@@ -75,94 +93,104 @@
             
             그렇다면 이 소수는 어떻게 만들어지는걸까?
             
-            - largePrime 함수
-                ![그만알아보자](https://github.com/TightJava/effective_java/assets/13278955/008b9d74-8cc6-434e-8ee5-fcd08bc1ccc9)
+        - 그렇다면 largePrime 함수는?
+            
+            ![그만알아보자](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f24a3bfa-3228-4a1d-b930-3f350e114b0a/Untitled.png)
+            
+            그만알아보자
+            
+        
+- 한 클래스에 시그너처(전달인자) 가 같은 생성자가 여러개 필요할 경우에 사용 가능
+    - `BigInteger.probablePrime(int, Random)`  는 랜덤 소수 생성
+    - `BigInteger(int, Random)` 는 랜덤한 10진수 반환 생성자
 
-                그만알아보자
-                
-        
-    - 한 클래스에 시그너처가 같은 생성자가 여러개 필요할 경우에 사용 가능
-    
-    `BigInteger.probablePrime` 같은 경우에도, BigInteger 에는 
-    `public BigInteger(int numBits, Random rnd)`
-    생성자가 존재하는데, numBits  길이의 무작위 BigInteger를 반환한다.
-    
-    
-2. 호줄될 때마다 인스턴스를 새로 생성하지 않아도 된다.
-    - Boolean.valueOf()
-        
-        ```java
-        @IntrinsicCandidate // JIT 컴파일러 내장 후보로 등록 -> 하드웨어 아키텍쳐 명령어로 실행한다는 뜻 -> 대충 최적화
-            public static Boolean valueOf(boolean b) { 
-                return (b ? TRUE : FALSE);
-            }
-        
-        public final class Boolean implements java.io.Serializable,
-                                              Comparable<Boolean>, Constable
-        {
-            public static final Boolean TRUE = new Boolean(true);
-            public static final Boolean FALSE = new Boolean(false);
-        ... 생략
-        }
-        ```
-        
-    - 인스턴스 통제(instance-controlled) 클래스
-    - 싱글턴 테크트리 혹은 인스턴스화 불가 테크트리로 갈 수 있다.
-    - 인스턴스가 하나이기때문에, 객체비교인 a==b 와 a.equals(b) 가 성립된다.
-        - JAVA 에서 일반적으로 equals 는 객체의 값 비교
-        - == 는 두 개체의 참조 비교 (메모리 위치 비교)
-3. 반환 타입의 하위 타입 객체를 반환할 수 있다
-4. 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다
-    
-    of 안에 숨겨놓을 수 있다. 
-    생성하는 부분을 고쳐도 
-    클라이언트는 코드를 안고치고 쓸수있다.
-    
-    ```java
-    public class EnumSetExample {
-    	enum Color { RED, BLUE, GREEN}
-    
-    	public static void main(String[] args) {
-    		EnumSet<Color> smallSet = EnumSet.of(Color.RED, Color.BLUE); // RegularEnumSet 반환
-    		//EnumSet<Color> largeSet = EnumSet.allOf(Color.class); // RegularEnumSet 반환 
-    //65개이상 JumboEnumSet - LONG
-    
-    		System.out.println(smallSet.getClass().getSimpleName()); // RegularEnumSet 출력
-    	//	System.out.println(largeSet.getClass().getSimpleName()); // RegularEnumSet 출력
-    	}
+## 2. 호출 때마다 인스턴스를 새로 생성하지 않아도 된다.
+
+### Boolean.valueOf()
+
+```java
+@IntrinsicCandidate // JIT 컴파일러 내장 후보로 등록 -> 하드웨어 아키텍쳐 명령어로 실행한다는 뜻 -> 대충 최적화
+    public static Boolean valueOf(boolean b) { 
+        return (b ? TRUE : FALSE);
     }
-    public static <E extends Enum<E>> EnumSet<E> of(E e1, E e2) {
-            EnumSet<E> result = noneOf(e1.getDeclaringClass());
-            result.add(e1);
-            result.add(e2);
-            return result;
-        }
-    /*
-    
-    	public static <E extends Enum<E>> EnumSet<E> allOf(Class<E> elementType) {
-    	        EnumSet<E> result = noneOf(elementType);
-    	        result.addAll();
-    	        return result;
-    	    }
-    
-    */
-    		public static <E extends Enum<E>> EnumSet<E> noneOf(Class<E> elementType) {
-    		        Enum<?>[] universe = getUniverse(elementType);
-    		        if (universe == null)
-    		            throw new ClassCastException(elementType + " not an enum");
-    		
-    		        if (universe.length <= 64)
-    		            return new RegularEnumSet<>(elementType, universe);
-    		        else
-    		            return new JumboEnumSet<>(elementType, universe);
-    		    }
-    		
-    		
-    ```
-    
-5. 정적 팩터리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.
-    
-    
+
+public final class Boolean implements java.io.Serializable,
+                                      Comparable<Boolean>, Constable
+{
+    public static final Boolean TRUE = new Boolean(true);
+    public static final Boolean FALSE = new Boolean(false);
+... 생략
+}
+```
+
+- Primitive Type → Wrapper class 로 반환해주는 클래스이다.
+    - 이때 TRUE 와 FALSE 는 시스템상 인스턴스가 하나만 존재하도록 위처럼 구현되어있다.
+- 위와 같은 형태를 인스턴스 통제(instance-controlled) 클래스 라고도 한다.
+- 싱글턴 테크트리 혹은 인스턴스화 불가 테크트리로 갈 수 있다.
+- 인스턴스가 하나이기때문에, 객체비교인 a==b 와 a.equals(b) 가 성립된다.
+    - JAVA 에서 일반적으로 equals 는 객체의 값 비교
+    - == 는 두 개체의 참조 비교 (메모리 위치 비교)
+
+[정적 팩토리 객체 재사용(캐시) 예시코드](https://www.notion.so/fa367fcf580b4c6e813b6d486bec6b9c?pvs=21) 
+
+## 3. 반환 타입의 하위 타입 객체를 반환할 수 있다
+
+- 아래 예시 참조
+
+[하위타입 반환 예제](https://www.notion.so/be87037df688497898b045f61e544a7d?pvs=21) 
+
+## 4.입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다
+
+```java
+public class EnumSetExample {
+	enum Color { RED, BLUE, GREEN}
+
+	public static void main(String[] args) {
+		EnumSet<Color> smallSet = EnumSet.of(Color.RED, Color.BLUE); // RegularEnumSet 반환
+		//EnumSet<Color> largeSet = EnumSet.allOf(Color.class); // RegularEnumSet 반환 
+//65개이상 JumboEnumSet - LONG
+
+		System.out.println(smallSet.getClass().getSimpleName()); // RegularEnumSet 출력
+	//	System.out.println(largeSet.getClass().getSimpleName()); // RegularEnumSet 출력
+	}
+}
+public static <E extends Enum<E>> EnumSet<E> of(E e1, E e2) {
+        EnumSet<E> result = noneOf(e1.getDeclaringClass());
+        result.add(e1);
+        result.add(e2);
+        return result;
+    }
+/*
+
+	public static <E extends Enum<E>> EnumSet<E> allOf(Class<E> elementType) {
+	        EnumSet<E> result = noneOf(elementType);
+	        result.addAll();
+	        return result;
+	    }
+
+*/
+		public static <E extends Enum<E>> EnumSet<E> noneOf(Class<E> elementType) {
+		        Enum<?>[] universe = getUniverse(elementType);
+		        if (universe == null)
+		            throw new ClassCastException(elementType + " not an enum");
+		
+		        if (universe.length <= 64)
+		            return new RegularEnumSet<>(elementType, universe);
+		        else
+		            return new JumboEnumSet<>(elementType, universe);
+		    }
+		
+		
+```
+
+- EnumSet
+    - EnumSet.of → nonOf
+    - EnumSet 클래스는 Enum 이 정의된게 64개 이상일경우 JumboEnumSet ( long type) 으로 생성
+    - 64개 미만일경우 RegularEnumSet (int type) 으로 생성된다.
+- 위와 같이 세부 구현사항을 몰라도 우리는 그냥 EnumSet 을 만들어주는대로 사용할 수 있다.
+- 만약 세부구현이 바뀐다고해도, 클라이언트 코드는 그대로 EnumSet.of 로 사용할 수 있다.
+
+## 5. 정적 팩터리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.
 
 ## 단점
 
@@ -251,13 +279,15 @@ public class Effective {
 		}
 	}
 	public static void main(String[] args) {
-		User user1 = new Effective().new User("user1");
-		User user2 = new Effective().new User("user2");
+		User user1 = new Effective().new User("user");
+		User user2 = new Effective().new User("user");
 		System.out.println("user1.equals(user2) = " + user1.equals(user2));
 		System.out.println("user1 == user2 = " + (user1 == user2));
+
 		System.out.println("====================================================");
-		User user3 = UserFactory.getUser("user3");
-		User user4 = UserFactory.getUser("user4");
+
+		User user3 = UserFactory.getUser("user");
+		User user4 = UserFactory.getUser("user");
 		System.out.println("user3.equals(user4) = " + user3.equals(user4));
 		System.out.println("(user3 == user4)  = " + (user3 == user4));
 	}
