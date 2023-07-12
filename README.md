@@ -14,6 +14,7 @@
 
 [🚀 wchae](https://github.com/enaenen)
 
+[🎒 yubchoi](https://github.com/yubinquitous)
 
 ## 방식
 
