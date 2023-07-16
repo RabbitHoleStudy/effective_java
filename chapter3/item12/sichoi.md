@@ -203,7 +203,7 @@ public String toString() {
         
 <img width="739" alt="스크린샷 2023-07-15 오후 11 34 56" src="https://github.com/TightJava/effective_java/assets/83565255/6b3063e3-1d41-4259-8958-27252602be5b">
 
-        `ArrayDeque`는 `AbstractCollection`를 상속받고 있다. `AbstrractCollection`이 이미 toString을 재정의해두었기 때문에, 편하게 이쁜 형태로 출력을 확인할 수 있다..!!
+`ArrayDeque`는 `AbstractCollection`를 상속받고 있다. `AbstrractCollection`이 이미 toString을 재정의해두었기 때문에, 편하게 이쁜 형태로 출력을 확인할 수 있다..!!
         
 
 AutoValue 프레임워크가 toString도 생성해준다. 이는 필드 내용을 깔끔하게 표현시켜주긴 하지만 클래스의 **의미**까지는 파악해주지 않기 때문에 포맷을 적용하기 어려울 수 있다.
