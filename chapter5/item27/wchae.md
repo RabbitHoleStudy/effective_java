@@ -15,7 +15,7 @@ public static void main(String[] args) {
 //Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ce5406fe-cc06-4249-9a08-2cdb8dd40256/Untitled.png)
+![image](https://github.com/TightJava/effective_java/assets/13278955/68bcdbbe-65e0-4b0e-a6e5-83128f0b0781)
 
 # @Suppress Warnings(”checked”)
 
@@ -34,7 +34,7 @@ public class NoWarning {
 }
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dc7e9774-afd6-4c5d-aabe-7a03a97eb24b/Untitled.png)
+![image](https://github.com/TightJava/effective_java/assets/13278955/423db5f7-0831-45fb-8945-cc0789414829)
 
 - 이렇게 Warning 을 숨길수는 있으나, 주석으로 명확하게 남겨야한다.
 
