@@ -1,5 +1,5 @@
 # 제네릭 타입
-
+[자세한 설명은 여기로](https://github.com/TightJava/effective_java/blob/main/chapter5/item26/wchae0.md)
 - 클래스와 인터페이스 선언 타입에 매게변수(type-parameter)가 쓰이면, 이를 제네릭 클래스 혹은 제네릭 인터페이스 라고 한다.
 - List 인터페이스는 원소의 타입을 나타내는 타입 매개변수 E 를 받는다.
     
