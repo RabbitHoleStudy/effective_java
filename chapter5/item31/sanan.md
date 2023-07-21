@@ -1,4 +1,4 @@
-<img width="497" alt="스크린샷 2023-07-20 오전 7 58 26" src="https://github.com/TightJava/effective_java/assets/105692206/84588295-f9cc-4234-a11d-3c96e58b589a">## 핵심어
+## 핵심어
 
 - 공변(**Co**variance), 반공변(**Contra**variance), 불공변(**In**variance), 무공변(**Non**-variance)
     - 공변(**Co**variance)
