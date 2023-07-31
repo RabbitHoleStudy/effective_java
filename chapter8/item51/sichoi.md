@@ -21,6 +21,31 @@
 
 ### 편의 메소드는 적당히만
 
+- **편의 메소드란?**
+    
+    **편의 메소드(convenience method)**는 주로 객체를 좀 더 편리하게 사용하기 위해 제공하는 메소드입니다. 주로 클래스 안에서 자주 사용되는 코드 조각을 재활용하거나, 코드의 가독성을 높이는 데 사용됩니다.
+    아래에 일반적인 편의 메소드 예시를 제공하겠습니다. List 인터페이스에 있는 Arrays.asList 메소드입니다.
+    
+    ```java
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.Arrays;
+    
+    public class ConvenienceMethodExample {
+        public static void main(String[] args) {
+            // Without convenience method
+            List<String> list = new ArrayList<>();
+            list.add("Apple");
+            list.add("Banana");
+            list.add("Cherry");
+    
+            // With convenience method
+            List<String> convenientList = Arrays.asList("Apple", "Banana", "Cherry");
+        }
+    }
+    ```
+    
+
 제목이 곧 내용이다. 편의 메소드를 너무 많이 만들면 이를 익히고 사용하고, 문서화하고 테스트하고 유지보수하는데 너무 많은 비용이 들 수 있다.
 
 그렇기 때문에 확실한 이유가 있지 않다면 가급적 사용하지 않는 것이 좋다.
